@@ -46,72 +46,76 @@ class _MyServicesState extends State<MyServices> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Expanded(
       child: AnimationLimiter(
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Number of columns
-            crossAxisSpacing: 8.0, // Space between columns
-            mainAxisSpacing: 8.0, // Space between rows
-          ),
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 1500), // Slower animation duration
-              columnCount: 3,
-              child: ScaleAnimation(
-                child: FadeInAnimation(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 5, right: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(151, 222, 219, 0.4470588235294118),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(8, 8), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            _items[index]['icon'],
-                            size: 50,
-                            color: Colors.teal,
-                          ),
-                          const SizedBox(height: 10),
-                          Center(
-                            child: Text(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, // Number of columns
+              crossAxisSpacing: 12.0, // Space between columns
+              mainAxisSpacing: 12.0, // Space between rows
+            ),
+            itemCount: _items.length,
+            itemBuilder: (context, index) {
+              return AnimationConfiguration.staggeredGrid(
+                position: index,
+                duration: const Duration(milliseconds: 1500), // Updated animation duration
+                columnCount: 3,
+                child: ScaleAnimation(
+                  child: FadeInAnimation(
+                    child: GestureDetector(
+                      onTap: () {
+                        // Add any interaction logic here
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                              spreadRadius: 2,
+                              blurRadius: 8,
+                              offset: const Offset(0, 4), // Adjust shadow position
+                            ),
+                          ],
+                        ),
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              _items[index]['icon'],
+                              size: 60, // Larger icon size
+                              color: Colors.teal[800],
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
                               _items[index]['name'],
                               style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                                color: Colors.black87,
+                                fontSize: 18, // Increased font size
+                                fontWeight: FontWeight.bold, // Bold text
                               ),
                               textAlign: TextAlign.center,
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            _items[index]['description'],
-                            style: const TextStyle(
-                              color: Colors.blueGrey,
-                              fontSize: 12,
+                            const SizedBox(height: 8),
+                            Text(
+                              _items[index]['description'],
+                              style: const TextStyle(
+                                color: Colors.black54,
+                                fontSize: 14, // Slightly larger font size
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
