@@ -421,13 +421,14 @@ class _ResumeScreenState extends State<ResumeScreen> with SingleTickerProviderSt
       Widget scrollView,
       ) {
     return Container(
+      height: 410,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color.fromRGBO(225, 243, 250, 0.4470588235294118),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.white.withOpacity(0.2),
             blurRadius: 8,
             spreadRadius: 2,
           ),
