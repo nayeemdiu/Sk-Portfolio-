@@ -38,6 +38,7 @@ dependencies:
   flutter_staggered_grid_view:
   staggered_grid_view_flutter: ^0.0.4
   flutter_staggered_animations: ^1.0.0
+  fl_chart: ^0.45.1
 
 dev_dependencies:
   flutter_test:
