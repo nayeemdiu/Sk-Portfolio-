@@ -16,7 +16,7 @@ class _MyServicesState extends State<MyServices> with SingleTickerProviderStateM
       'description': 'Developing high-quality mobile applications'
     },
     {
-      'name': 'Web Design & Development',
+      'name': 'Web Design/Development',
       'icon': Icons.web,
       'description': 'Creating responsive and user-friendly websites'
     },
@@ -47,7 +47,7 @@ class _MyServicesState extends State<MyServices> with SingleTickerProviderStateM
     return Expanded(
       child: AnimationLimiter(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+          padding: const EdgeInsets.only(top: 50,right:10),
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3, // Number of columns
@@ -59,7 +59,7 @@ class _MyServicesState extends State<MyServices> with SingleTickerProviderStateM
               return AnimationConfiguration.staggeredGrid(
                 position: index,
                 duration: const Duration(milliseconds: 1500), // Updated animation duration
-                columnCount: 3,
+                columnCount: 2,
                 child: ScaleAnimation(
                   child: FadeInAnimation(
                     child: GestureDetector(
@@ -68,46 +68,59 @@ class _MyServicesState extends State<MyServices> with SingleTickerProviderStateM
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
+
+                          border: Border.all(
+                            width: 0.5,
+                            color: Colors.teal,
+                          ),
+                          // gradient: LinearGradient(
+                          //   begin: Alignment.topLeft,
+                          //   end: Alignment.bottomRight,
+                          //   colors: [Colors.teal.shade50, Colors.white],
+                          // ),
+                          borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.white,
-                              spreadRadius: 2,
-                              blurRadius: 8,
-                              offset: const Offset(0, 4), // Adjust shadow position
+                              color: Colors.white.withOpacity(0.2),
+                              spreadRadius: 3,
+                              blurRadius: 15,
+                              offset: Offset(0, 8),
                             ),
                           ],
                         ),
                         alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              _items[index]['icon'],
-                              size: 60, // Larger icon size
-                              color: Colors.teal[800],
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              _items[index]['name'],
-                              style: const TextStyle(
-                                color: Colors.black87,
-                                fontSize: 18, // Increased font size
-                                fontWeight: FontWeight.bold, // Bold text
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                _items[index]['icon'],
+                                size: 60, // Larger icon size
+                                color: Colors.teal[800],
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              _items[index]['description'],
-                              style: const TextStyle(
-                                color: Colors.black54,
-                                fontSize: 14, // Slightly larger font size
+                              const SizedBox(height: 12),
+                              Text(
+                                _items[index]['name'],
+                                style: const TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 18, // Increased font size
+                                  fontWeight: FontWeight.bold, // Bold text
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                              const SizedBox(height: 8),
+                              Text(
+                                _items[index]['description'],
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 14, // Slightly larger font size
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

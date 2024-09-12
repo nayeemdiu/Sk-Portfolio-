@@ -1,5 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -9,10 +11,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool isHireHovered = false; // State to track hover for "Hire Me"
+  bool isContactHovered = false; // State to track hover for "Contact Me"
+  late bool isVertical = false; // Initialize with a default value
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
+
+    // Set `isVertical` based on screen width (or any other logic you want)
+    isVertical = width < 600;
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -20,39 +30,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             // Top Banner with Logo
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.teal.shade300,
-                      Colors.blue.shade400],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Column(
+                children: [
+                  Container(
+                    width: 200, // Width and height of the container
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: const Color(0x7296efec),
+                      border: Border.all(
+                        width: 4,
+                        color: Colors.teal,
+                      ),
+                      shape: BoxShape.circle, // Makes the container circular
+                      image: const DecorationImage(
+                        image: AssetImage('nayeem1.jpg'),
+                        fit: BoxFit.fill, // Ensures the image fits within the circle
+                      ),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.white.withOpacity(0.4),
-                      spreadRadius: 2,
-                      blurRadius: 8,
-                      offset: Offset(4, 4),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 100,
-                      backgroundImage: AssetImage('nayeem2.png'),
-                      backgroundColor: Colors.white,
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+                ],
               ),
             ),
+
             const SizedBox(height: 20),
 
             // Name and Title
@@ -65,19 +65,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: Colors.teal[900],
               ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              'Flutter Developer',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.teal,
-                fontWeight: FontWeight.w500,
+            const SizedBox(height: 20),
+
+            SizedBox(
+              width: isVertical ? double.infinity : width * 0.29,
+              height: 40,
+              child: AnimatedTextKit(
+                repeatForever: true,
+                pause: const Duration(seconds: 2),
+                animatedTexts: [
+                  TyperAnimatedText(
+                      "I'm developing mobile app, frontend, and backend applications( Flutter )",
+                      textAlign: isVertical ? TextAlign.center : TextAlign.start,
+                      textStyle: GoogleFonts.getFont('Delius',
+                          color: Colors.grey,
+                          fontSize: 15)),
+                ],
               ),
             ),
+
             const SizedBox(height: 20),
 
             // Social Media Links
-
             Wrap(
               alignment: WrapAlignment.center,
               spacing: 10.0, // Space between items horizontally
@@ -91,20 +100,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
 
-
-
             const SizedBox(height: 30),
 
             // Hire Me and Contact Me Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildGradientButton("Hire Me", () {
-                  print("Hire Me button pressed");
-                }),
-                _buildGradientButton("Contact Me", () {
-                  print("Contact Me button pressed");
-                }),
+                _buildHoverableButton(
+                  text: "Hire Me",
+                  isHovered: isHireHovered,
+                  onHover: (hovered) {
+                    setState(() {
+                      isHireHovered = hovered;
+                    });
+                  },
+                  onPressed: () {
+                    print("Hire Me button pressed");
+                  },
+                ),
+                _buildHoverableButton(
+                  text: "Contact Me",
+                  isHovered: isContactHovered,
+                  onHover: (hovered) {
+                    setState(() {
+                      isContactHovered = hovered;
+                    });
+                  },
+                  onPressed: () {
+                    print("Contact Me button pressed");
+                  },
+                ),
               ],
             ),
           ],
@@ -128,36 +153,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildGradientButton(String text, VoidCallback onPressed) {
-    return Container(
-      width: 160,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.teal, Colors.blue],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+  // Hoverable Button with hover color effect
+  Widget _buildHoverableButton({
+    required String text,
+    required bool isHovered,
+    required Function(bool) onHover,
+    required VoidCallback onPressed,
+  }) {
+    return MouseRegion(
+      onEnter: (_) => onHover(true), // When mouse enters, set hover to true
+      onExit: (_) => onHover(false), // When mouse exits, set hover to false
+      child: Container(
+        width: 160,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
         ),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.teal.withOpacity(0.4),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(4, 4),
+        child: TextButton(
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            backgroundColor: isHovered ? Colors.teal.shade300 : Colors.teal, // Change color on hover
+            textStyle: const TextStyle(
+              fontSize: 18,
+            ),
           ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          backgroundColor: Colors.white,
-          textStyle: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+          child: Text(
+            text,
+            style: TextStyle(color: Colors.white),
           ),
         ),
-        child: Text(text),
       ),
     );
   }

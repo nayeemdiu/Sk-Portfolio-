@@ -39,7 +39,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 16.0, right: 16, left: 16, bottom: 16),
+          padding: const EdgeInsets.only(top: 16.0, left: 16, bottom: 16),
           child: Text(
             "About Me",
             style: TextStyle(

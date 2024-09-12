@@ -9,5 +9,18 @@ class Assets {
   static const String assetsNayeem1 = 'assets/nayeem1.jpg';
   static const String assetsNayeem2 = 'assets/nayeem2.png';
   static const String assetsNexttech = 'assets/nexttech.png';
+  static const String imagesBackend = 'assets/images/backend.png';
+  static const String imagesBackendIcon = 'assets/images/backend_icon.png';
+  static const String imagesFacebook = 'assets/images/facebook.png';
+  static const String imagesFlutter = 'assets/images/flutter.png';
+  static const String imagesFlutterCircle = 'assets/images/flutter_circle.png';
+  static const String imagesGithub = 'assets/images/github.png';
+  static const String imagesJava = 'assets/images/java.png';
+  static const String imagesJavaCircle = 'assets/images/java_circle.png';
+  static const String imagesKhalid = 'assets/images/khalid.png';
+  static const String imagesLinkedIn = 'assets/images/linkedIn.png';
+  static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesPython = 'assets/images/python.png';
+  static const String imagesPythonCircle = 'assets/images/python_circle.png';
 
 }

@@ -1,12 +1,10 @@
-
-import 'dart:developer';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skportfolio/screen/resume_screen.dart';
 import 'package:skportfolio/widget/menu.dart';
 import 'package:skportfolio/widget/profile_screen.dart';
 import 'package:skportfolio/widget/my_services.dart';
-
+import '../widget/about_des.dart';
 import 'about_me.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,16 +27,40 @@ class _HomePageState extends State<HomePage> {
 
   // List of widgets for dynamic content
   final List<Widget> screens = [
-    AboutMeSection() ,
+    Column(
+      children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: Container(
+                height: 500,
+                color: Colors.white,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      AboutMeSection(),
+                      LowerContainer(width: 500,),
+
+                    ],
+                  ),
+                ),
+              ),
+            )
+      ],
+    ),
+
+    //AboutMeSection() ,
     MyServices(),
     ResumeScreen(),
     Center(child: Text('Projects Coming Soon', style: TextStyle(fontSize: 20))),
-    Center(child: Text('Contact Me Coming Soon', style: TextStyle(fontSize: 20))),
+    Center(
+        child: Text('Contact Me Coming Soon', style: TextStyle(fontSize: 20))),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white38,
       body: Row(
         children: [
           // Menu Sidebar
