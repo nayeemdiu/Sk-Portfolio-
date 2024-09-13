@@ -68,7 +68,8 @@ class _MyServicesState extends State<MyServices> with SingleTickerProviderStateM
                       },
                       child: Container(
                         decoration: BoxDecoration(
-
+                          color: Color.fromRGBO(
+                              220, 238, 237, 0.4470588235294118),
                           border: Border.all(
                             width: 0.5,
                             color: Colors.teal,

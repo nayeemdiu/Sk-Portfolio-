@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       "I'm developing mobile app, frontend, and backend applications( Flutter )",
                       textAlign: isVertical ? TextAlign.center : TextAlign.start,
                       textStyle: GoogleFonts.getFont('Delius',
-                          color: Colors.grey,
+                          color: Colors.blueGrey,
                           fontSize: 15)),
                 ],
               ),

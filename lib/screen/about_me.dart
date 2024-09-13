@@ -79,7 +79,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
                       BoxShadow(
                         color: Colors.teal.withOpacity(0.2),
                         spreadRadius: 3,
-                        blurRadius: 15,
+                        blurRadius: 10,
                         offset: Offset(0, 8),
                       ),
                     ],

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skportfolio/screen/projectScreen.dart';
 import 'package:skportfolio/screen/resume_screen.dart';
 import 'package:skportfolio/widget/menu.dart';
 import 'package:skportfolio/widget/profile_screen.dart';
 import 'package:skportfolio/widget/my_services.dart';
-import '../widget/about_des.dart';
 import 'about_me.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       AboutMeSection(),
-                      LowerContainer(width: 500,),
 
                     ],
                   ),
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     //AboutMeSection() ,
     MyServices(),
     ResumeScreen(),
-    Center(child: Text('Projects Coming Soon', style: TextStyle(fontSize: 20))),
+    ProjectScreen(),
     Center(
         child: Text('Contact Me Coming Soon', style: TextStyle(fontSize: 20))),
   ];
