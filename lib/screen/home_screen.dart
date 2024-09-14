@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
             )
       ],
     ),
-
     //AboutMeSection() ,
     MyServices(),
     ResumeScreen(),
