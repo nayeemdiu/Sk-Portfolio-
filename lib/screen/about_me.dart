@@ -15,7 +15,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 700),
       vsync: this,
     );
     _heightAnimation = Tween<double>(begin: 180, end: 220).animate(
@@ -39,7 +39,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 16.0, left: 16, bottom: 16),
+          padding: const EdgeInsets.only(top: 6.0, left: 16, bottom: 16),
           child: Text(
             "About Me",
             style: TextStyle(
@@ -65,7 +65,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
               animation: _controller,
               builder: (context, child) {
                 return Container(
-                  width: 680,
+                  width: 700,
                   height: _heightAnimation.value,
                   padding: EdgeInsets.all(24),
                   decoration: BoxDecoration(

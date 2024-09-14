@@ -4,12 +4,18 @@ class Assets {
 
   static const String assetsCollage = 'assets/collage.png';
   static const String assetsDiu = 'assets/diu.png';
-  static const String assetsE1 = 'assets/e1.png';
+  static const String assetsE1 = 'assets/e1.jpg';
+  static const String assetsE2 = 'assets/e2.jpg';
+  static const String assetsE3 = 'assets/e3.jpg';
+  static const String assetsE4 = 'assets/e4.jpg';
+  static const String assetsE5 = 'assets/e5.jpg';
+  static const String assetsE6 = 'assets/e6.jpg';
   static const String assetsIhelpbd = 'assets/ihelpbd.png';
   static const String assetsLogo = 'assets/logo.png';
   static const String assetsNayeem1 = 'assets/nayeem1.jpg';
   static const String assetsNayeem2 = 'assets/nayeem2.png';
   static const String assetsNexttech = 'assets/nexttech.png';
+  static const String assetsSk = 'assets/sk.png';
   static const String imagesBackend = 'assets/images/backend.png';
   static const String imagesBackendIcon = 'assets/images/backend_icon.png';
   static const String imagesFacebook = 'assets/images/facebook.png';
@@ -23,5 +29,6 @@ class Assets {
   static const String imagesLogo = 'assets/images/logo.png';
   static const String imagesPython = 'assets/images/python.png';
   static const String imagesPythonCircle = 'assets/images/python_circle.png';
+  static const String skportfolioAssetsE1 = 'assets/e1.png';
 
 }

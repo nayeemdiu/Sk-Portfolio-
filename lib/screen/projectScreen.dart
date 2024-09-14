@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -5,12 +6,14 @@ class Project {
   final String title;
   final String description;
   final String imageUrl;
+  final List<String> imageUrls; // Add list of image URLs
   final Color color;
 
   Project({
     required this.title,
     required this.description,
     required this.imageUrl,
+    required this.imageUrls, // Required in the constructor
     required this.color,
   });
 }
@@ -21,38 +24,59 @@ class ProjectScreen extends StatelessWidget {
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
       color: Colors.blue,
     ),
     Project(
       title: 'Weather Forecast',
       description: 'Real-time weather updates and forecasts',
       imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.png',],
       color: Colors.orange,
     ),
     Project(
-      title: 'Task Manager',
-      description: 'Organize your daily tasks efficiently',
+      title: 'E-commerce App',
+      description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      color: Colors.green,
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
+      color: Colors.blue,
     ),
     Project(
-      title: 'Social Media Dashboard',
-      description: 'Track your social media performance',
+      title: 'Weather Forecast',
+      description: 'Real-time weather updates and forecasts',
       imageUrl: 'assets/e1.png',
-      color: Colors.purple,
+      imageUrls: ['assets/e1.png',],
+      color: Colors.orange,
     ),
     Project(
-      title: 'Fitness Tracker',
-      description: 'Monitor your workouts and health stats',
+      title: 'E-commerce App',
+      description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      color: Colors.red,
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
+      color: Colors.blue,
     ),
     Project(
-      title: 'Recipe App',
-      description: 'Discover and save your favorite recipes',
+      title: 'Weather Forecast',
+      description: 'Real-time weather updates and forecasts',
       imageUrl: 'assets/e1.png',
-      color: Colors.teal,
+      imageUrls: ['assets/e1.png',],
+      color: Colors.orange,
     ),
+    Project(
+      title: 'E-commerce App',
+      description: 'A full-featured online shopping experience',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
+      color: Colors.blue,
+    ),
+    Project(
+      title: 'Weather Forecast',
+      description: 'Real-time weather updates and forecasts',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.png',],
+      color: Colors.orange,
+    ),
+    // Add other projects
   ];
 
   @override
@@ -60,18 +84,17 @@ class ProjectScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('My Projects', style: TextStyle(color: Colors.black87)),
+        title: Text('My Projects', style: TextStyle(fontSize: 18, color: Colors.black87)),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: AnimationLimiter(
         child: GridView.builder(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.only(right: 10, bottom: 15),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            //childAspectRatio: 0.7,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
           ),
           itemCount: projects.length,
           itemBuilder: (BuildContext context, int index) {
@@ -115,6 +138,10 @@ class _ProjectCardState extends State<ProjectCard> {
         curve: Curves.easeInOut,
         transform: _isHovered ? (Matrix4.identity()..scale(1.05)) : Matrix4.identity(),
         decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.5,
+            color: Colors.teal,
+          ),
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
@@ -168,12 +195,13 @@ class _ProjectCardState extends State<ProjectCard> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     AnimatedOpacity(
-
                       duration: Duration(milliseconds: 300),
                       opacity: _isHovered ? 1.0 : 0.0,
                       child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text('View', style: TextStyle(fontSize: 12,color: Colors.white)),
+                        onPressed: () {
+                          _showImageDialog(context, widget.project.imageUrls); // Pass image URLs
+                        },
+                        child: Text('View', style: TextStyle(fontSize: 12, color: Colors.white)),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: widget.project.color,
                           shape: RoundedRectangleBorder(
@@ -198,15 +226,73 @@ class _ProjectCardState extends State<ProjectCard> {
       _isHovered = isHovered;
     });
   }
-}
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Project Showcase',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-    ),
-    home: ProjectScreen(),
-  ));
+  // Pass context and image URLs into the dialog
+  void _showImageDialog(BuildContext context, List<String> imageUrls) {
+    showDialog(
+      context: context,
+      barrierDismissible: true, // Make dialog non-blocking
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(), // Dismiss dialog on outside tap
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: AnimatedOpacity(
+                opacity: 1.0,
+                duration: Duration(milliseconds: 300),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Images',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 500,
+                        height: 200,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: imageUrls.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Image.asset(
+                                imageUrls[index],
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        icon: Icon(Icons.backspace,color: Colors.teal,),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

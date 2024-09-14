@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             // Top Banner with Logo
             Padding(
-              padding: const EdgeInsets.only(top: 50.0),
+              padding: const EdgeInsets.only(top: 40.0),
               child: Column(
                 children: [
                   Container(
@@ -44,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       shape: BoxShape.circle, // Makes the container circular
                       image: const DecorationImage(
-                        image: AssetImage('nayeem1.jpg'),
+                        image: AssetImage('sk.png'),
                         fit: BoxFit.fill, // Ensures the image fits within the circle
                       ),
                     ),
@@ -92,11 +93,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               spacing: 10.0, // Space between items horizontally
               runSpacing: 10.0, // Space between items vertically
               children: [
-                _buildSocialIcon(Icons.facebook, Colors.blue),
-                _buildSocialIcon(Icons.web, Colors.green),
-                _buildSocialIcon(Icons.code, Colors.grey),
-                _buildSocialIcon(Icons.telegram, Colors.lightBlueAccent),
-                _buildSocialIcon(Icons.language, Colors.brown),
+                _buildSocialIcon(Icons.facebook, Colors.blue, "https://www.facebook.com/sknayeem.urrahman/"),
+                _buildSocialIcon(Icons.link, Colors.green, "https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/"),
+                _buildSocialIcon(Icons.code, Colors.grey, "https://github.com/nayeemdiu"),
+                _buildSocialIcon(Icons.telegram, Colors.lightBlueAccent, "https://t.me/your-telegram"),
               ],
             ),
 
@@ -138,16 +138,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildSocialIcon(IconData icon, Color color) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CircleAvatar(
-        radius: 15,
-        backgroundColor: color.withOpacity(0.2),
-        child: Icon(
-          icon,
-          size: 15,
-          color: color,
+  // Function to launch URLs
+  Future<void> _launchURL(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  // Widget to build social media icons with URL linking
+  Widget _buildSocialIcon(IconData icon, Color color, String url) {
+    return GestureDetector(
+      onTap: () => _launchURL(url), // Launch the URL on tap
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CircleAvatar(
+          radius: 15,
+          backgroundColor: color.withOpacity(0.2),
+          child: Icon(
+            icon,
+            size: 15,
+            color: color,
+          ),
         ),
       ),
     );
@@ -179,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           child: Text(
             text,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:skportfolio/widget/menu.dart';
 import 'package:skportfolio/widget/profile_screen.dart';
 import 'package:skportfolio/widget/my_services.dart';
 import 'about_me.dart';
+import 'contact_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -51,14 +52,13 @@ class _HomePageState extends State<HomePage> {
     MyServices(),
     ResumeScreen(),
     ProjectScreen(),
-    Center(
-        child: Text('Contact Me Coming Soon', style: TextStyle(fontSize: 20))),
+    ContactPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white38,
+      backgroundColor: Colors.white,
       body: Row(
         children: [
           // Menu Sidebar
