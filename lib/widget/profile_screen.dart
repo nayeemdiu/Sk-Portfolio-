@@ -2,7 +2,10 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skportfolio/screen/about_me.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../screen/contact_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -12,16 +15,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool isHireHovered = false; // State to track hover for "Hire Me"
-  bool isContactHovered = false; // State to track hover for "Contact Me"
-  late bool isVertical = false; // Initialize with a default value
+  bool isHireHovered = false;
+  bool isContactHovered = false;
+  late bool isVertical = false;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
-    // Set `isVertical` based on screen width (or any other logic you want)
     isVertical = width < 600;
 
     return Center(
@@ -35,18 +37,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   Container(
-                    width: 200, // Width and height of the container
-                    height: 200,
+                    width: 210,
+                    height: 210,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white.withOpacity(0.1),
+                          spreadRadius: 5,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
                       color: const Color(0x7296efec),
                       border: Border.all(
                         width: 4,
                         color: Colors.teal,
                       ),
-                      shape: BoxShape.circle, // Makes the container circular
-                      image: const DecorationImage(
-                        image: AssetImage('sk.png'),
-                        fit: BoxFit.fill, // Ensures the image fits within the circle
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage('assets/sk.png'),
+                        fit: BoxFit.cover,
+                        onError: (exception, stackTrace) {
+                          print('Error loading image: $exception');
+                        },
                       ),
                     ),
                   ),
@@ -76,11 +89,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 pause: const Duration(seconds: 2),
                 animatedTexts: [
                   TyperAnimatedText(
-                      "I'm developing mobile app, frontend, and backend applications( Flutter )",
-                      textAlign: isVertical ? TextAlign.center : TextAlign.start,
-                      textStyle: GoogleFonts.getFont('Delius',
-                          color: Colors.blueGrey,
-                          fontSize: 15)),
+                    "I'm developing mobile app, frontend, and backend applications (Flutter)",
+                    textAlign: isVertical ? TextAlign.center : TextAlign.start,
+                    textStyle: GoogleFonts.delius(
+                      color: Colors.blueGrey,
+                      fontSize: 15,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -90,8 +105,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // Social Media Links
             Wrap(
               alignment: WrapAlignment.center,
-              spacing: 10.0, // Space between items horizontally
-              runSpacing: 10.0, // Space between items vertically
+              spacing: 10.0,
+              runSpacing: 10.0,
               children: [
                 _buildSocialIcon(Icons.facebook, Colors.blue, "https://www.facebook.com/sknayeem.urrahman/"),
                 _buildSocialIcon(Icons.link, Colors.green, "https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/"),
@@ -127,11 +142,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     });
                   },
                   onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ContactPage()));
                     print("Contact Me button pressed");
                   },
                 ),
               ],
             ),
+
           ],
         ),
       ),
@@ -140,17 +157,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Function to launch URLs
   Future<void> _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
+    final Uri uri = Uri.parse(url);
+
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $url';
     }
   }
 
+
   // Widget to build social media icons with URL linking
   Widget _buildSocialIcon(IconData icon, Color color, String url) {
     return GestureDetector(
-      onTap: () => _launchURL(url), // Launch the URL on tap
+      onTap: () => _launchURL(url),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CircleAvatar(
@@ -174,8 +192,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required VoidCallback onPressed,
   }) {
     return MouseRegion(
-      onEnter: (_) => onHover(true), // When mouse enters, set hover to true
-      onExit: (_) => onHover(false), // When mouse exits, set hover to false
+      onEnter: (_) => onHover(true),
+      onExit: (_) => onHover(false),
       child: Container(
         width: 160,
         decoration: BoxDecoration(
@@ -185,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onPressed: onPressed,
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            backgroundColor: isHovered ? Colors.teal.shade300 : Colors.teal, // Change color on hover
+            backgroundColor: isHovered ? Colors.teal.shade300 : Colors.teal,
             textStyle: const TextStyle(
               fontSize: 18,
             ),

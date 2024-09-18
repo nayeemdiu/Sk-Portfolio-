@@ -6,6 +6,7 @@ import 'package:skportfolio/widget/menu.dart';
 import 'package:skportfolio/widget/profile_screen.dart';
 import 'package:skportfolio/widget/my_services.dart';
 import 'about_me.dart';
+import 'bottom_navigation_screen.dart';
 import 'contact_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,25 +31,23 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> screens = [
     Column(
       children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Container(
-                height: 500,
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      AboutMeSection(),
-
-                    ],
-                  ),
-                ),
+        Padding(
+          padding: const EdgeInsets.only(top: 50.0),
+          child: Container(
+            height: 500,
+            color: Colors.white,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  AboutMeSection(),
+                ],
               ),
-            )
+            ),
+          ),
+        )
       ],
     ),
-    //AboutMeSection() ,
     MyServices(),
     ResumeScreen(),
     ProjectScreen(),
@@ -57,41 +56,61 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Check if it's mobile, tablet, or web view
+    bool isMobile = screenWidth < 600;
+    bool isTablet = screenWidth >= 600 && screenWidth < 1024;
+    bool isWeb = screenWidth >= 1024;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Row(
-        children: [
-          // Menu Sidebar
-          Expanded(
-            flex: 1,
-            child: Column(
+      // Mobile view with Drawer for Menu
+      drawer: isMobile
+          ? Drawer(child: MenuScreen(onItemSelected: updateScreen))
+          : null,
+      appBar: isMobile
+          ? AppBar(
+              title: Text("Sk Portfolio"),
+              centerTitle: true,
+              backgroundColor: Colors.teal,
+            )
+          : null,
+      body: isMobile
+          ? Column(
               children: [
-                MenuScreen(
-                  onItemSelected: updateScreen,
+                Expanded(child: BottomNavigationPage()),
+              ],
+            )
+          : Row(
+              children: [
+                // Menu Sidebar for Tablet and Web
+                if (isTablet || isWeb)
+                  Expanded(
+                    flex: isWeb ? 1 : 2, // Smaller menu for web, larger for tablet
+                    child: MenuScreen(onItemSelected: updateScreen),
+                  ),
+                // Profile Section
+                Expanded(
+                  flex: isWeb ? 4 : 5, // Larger profile on web
+                  child: Column(
+                    children: [
+                      ProfileScreen(),
+                    ],
+                  ),
+                ),
+                // Main Content Section
+                Expanded(
+                  flex: isWeb ? 7 : 10, // Larger content section on web
+                  child: Container(
+                    height: double.infinity,
+                    color: Colors.white,
+                    child: screens[selectedIndex], // Display selected screen
+                  ),
                 ),
               ],
             ),
-          ),
-          // Profile Section
-          Expanded(
-            flex: 4,
-            child: Column(
-              children: [
-                ProfileScreen(),
-              ],
-            ),
-          ),
-          // Main Content Section that changes based on selection
-          Expanded(
-            flex: 7,
-            child: Container(
-              height: double.infinity,
-              color: Colors.white,
-              child: screens[selectedIndex], // Display selected screen
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

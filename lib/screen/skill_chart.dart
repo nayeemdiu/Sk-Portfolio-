@@ -29,7 +29,7 @@ class _SkillsoftChatState extends State<SkillsoftChat>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 10000),
       vsync: this,
     )..forward();
     _animation = CurvedAnimation(
@@ -73,7 +73,7 @@ class _SkillsoftChatState extends State<SkillsoftChat>
           ),
           SizedBox(height: 10),
           SizedBox(
-            height: 150, // Increased height for better visibility
+            height: 300, // Increased height for better visibility
             child: AnimatedBuilder(
               animation: _animation,
               builder: (context, child) {

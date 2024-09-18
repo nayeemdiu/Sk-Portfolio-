@@ -39,22 +39,31 @@ class MyServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Define grid columns and spacing based on screen width
+    int crossAxisCount = screenWidth < 600
+        ? 2 // Mobile view
+        : (screenWidth < 1200 ? 3 : 3); // Web view will always have 3 columns
+    double crossAxisSpacing = screenWidth < 600 ? 8.0 : 16.0;
+    double mainAxisSpacing = screenWidth < 600 ? 8.0 : 16.0;
+
     return Expanded(
       child: AnimationLimiter(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50, right: 10),
+          padding: const EdgeInsets.only(left: 10, top: 50, right: 10),
           child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 12.0,
-              mainAxisSpacing: 12.0,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              crossAxisSpacing: crossAxisSpacing,
+              mainAxisSpacing: mainAxisSpacing,
             ),
             itemCount: _items.length,
             itemBuilder: (context, index) {
               return AnimationConfiguration.staggeredGrid(
                 position: index,
-                duration: const Duration(milliseconds: 1200),
-                columnCount: 2,
+                duration: const Duration(milliseconds: 1500),
+                columnCount: crossAxisCount,
                 child: ScaleAnimation(
                   child: FadeInAnimation(
                     child: HoverableServiceItem(item: _items[index]),
@@ -83,6 +92,13 @@ class _HoverableServiceItemState extends State<HoverableServiceItem> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Use different scaling factors for font sizes based on screen size
+    double baseFontSize = screenWidth < 600
+        ? 12 // Mobile view
+        : (screenWidth < 1200 ? 14 : 16); // Web and tablet view
+
     return MouseRegion(
       onEnter: (_) => setState(() => isHovered = true),
       onExit: (_) => setState(() => isHovered = false),
@@ -109,36 +125,57 @@ class _HoverableServiceItemState extends State<HoverableServiceItem> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                widget.item['icon'],
-                size: isHovered ? 70 : 60,
-                color: isHovered ? Colors.teal[900] : Colors.teal[800],
-              ),
-              const SizedBox(height: 12),
-              Text(
-                widget.item['name'],
-                style: TextStyle(
-                  color: isHovered ? Colors.black : Colors.black87,
-                  fontSize: isHovered ? 20 : 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                widget.item['description'],
-                style: TextStyle(
-                  color: isHovered ? Colors.black87 : Colors.black54,
-                  fontSize: isHovered ? 15 : 14,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+          padding: EdgeInsets.all(screenWidth < 600 ? 6.0 : 12.0),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              double maxHeight = constraints.maxHeight;
+              double iconSize = isHovered
+                  ? (screenWidth < 600 ? maxHeight * 0.3 : maxHeight * 0.35)
+                  : (screenWidth < 600 ? maxHeight * 0.25 : maxHeight * 0.3);
+              double titleSize = isHovered
+                  ? baseFontSize * 1.3
+                  : baseFontSize * 1.2; // Title size scaling
+              double descSize = isHovered
+                  ? baseFontSize * 1.1
+                  : baseFontSize * 0.95; // Description size scaling
+
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    widget.item['icon'],
+                    size: iconSize,
+                    color: isHovered ? Colors.teal[900] : Colors.teal[800],
+                  ),
+                  SizedBox(height: maxHeight * 0.05),
+                  Text(
+                    widget.item['name'],
+                    style: TextStyle(
+                      color: isHovered ? Colors.black : Colors.black87,
+                      fontSize: titleSize,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: maxHeight * 0.03),
+                  Expanded(
+                    child: Text(
+                      widget.item['description'],
+                      style: TextStyle(
+                        color: isHovered ? Colors.black87 : Colors.black54,
+                        fontSize: descSize,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

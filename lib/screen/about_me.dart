@@ -34,6 +34,24 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width using MediaQuery
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Determine device type based on screen width
+    bool isMobile = screenWidth < 600;
+    bool isTablet = screenWidth >= 600 && screenWidth < 1024;
+    bool isWeb = screenWidth >= 1024;
+
+    // Set container width based on the device type
+    double containerWidth;
+    if (isMobile) {
+      containerWidth = screenWidth * 0.9; // 90% of the screen width for mobile
+    } else if (isTablet) {
+      containerWidth = screenWidth * 0.75; // 75% of the screen width for tablets
+    } else {
+      containerWidth = 700; // Fixed width for web view
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +63,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.teal[700],
-              fontSize: 18,
+              fontSize: isMobile ? 16 : 18, // Smaller font size on mobile
               letterSpacing: 1.2,
             ),
           ),
@@ -65,9 +83,9 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
               animation: _controller,
               builder: (context, child) {
                 return Container(
-                  width: 700,
+                  width: containerWidth, // Set responsive width
                   height: _heightAnimation.value,
-                  padding: EdgeInsets.all(24),
+                  padding: EdgeInsets.all(isMobile ? 16 : 24), // Adjust padding for mobile
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -91,7 +109,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
                         "Hello! I'm Sk Nayeem Ur Rahman",
                         style: TextStyle(
                           color: Colors.teal[700],
-                          fontSize: 20,
+                          fontSize: isMobile ? 18 : 20, // Smaller font size on mobile
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.5,
                         ),
@@ -104,7 +122,7 @@ class _AboutMeSectionState extends State<AboutMeSection> with SingleTickerProvid
                               "I can work independently and respect deadlines. I feel comfortable working with a good team of developers.",
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 16,
+                            fontSize: isMobile ? 14 : 16, // Adjust text size for mobile
                             height: 1.6,
                             letterSpacing: 0.3,
                           ),

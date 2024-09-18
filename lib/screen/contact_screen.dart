@@ -1,36 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
+  @override
+  _ContactPageState createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize animation controller
+    _controller = AnimationController(
+      duration: Duration(seconds: 1), // Animation duration
+      vsync: this,
+    );
+
+    // Slide animation
+    _slideAnimation = Tween<Offset>(begin: Offset(0, 0.5), end: Offset.zero).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    // Fade animation
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
+
+    // Start the animation
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Get screen size for responsive design
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xFFFEFEFF), // Dark background
+      backgroundColor: Color(0xFFFEFEFF),
       body: Padding(
-        padding: const EdgeInsets.only(top: 25.0, right: 10, left: 10, bottom: 20),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 0.5,
-              color: Colors.teal,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        child: SlideTransition(
+          position: _slideAnimation, // Apply the slide animation
+          child: FadeTransition(
+            opacity: _fadeAnimation, // Apply the fade animation
+            child: SingleChildScrollView( // Add SingleChildScrollView
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 0.5,
+                    color: Colors.teal,
+                  ),
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: screenWidth > 600 ? _buildWideLayout(context) : _buildNarrowLayout(context),
+              ),
             ),
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(20),
           ),
-          child: screenWidth > 600
-              ? _buildWideLayout(context) // For tablets and larger screens
-              : _buildNarrowLayout(context), // For mobile screens
         ),
       ),
     );
   }
 
-  // Wide layout for larger screens
   Widget _buildWideLayout(BuildContext context) {
     return Row(
       children: [
@@ -59,7 +110,7 @@ class ContactPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              _buildSocialMediaIcons(),
+              _buildSocialMediaIcons(), // Add animation
             ],
           ),
         ),
@@ -71,13 +122,13 @@ class ContactPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildTextField('Name'),
+                _buildAnimatedTextField('Name'),
                 SizedBox(height: 15),
-                _buildTextField('E-mail'),
+                _buildAnimatedTextField('E-mail'),
                 SizedBox(height: 15),
-                _buildTextField('Subject'),
+                _buildAnimatedTextField('Subject'),
                 SizedBox(height: 15),
-                _buildMessageField(),
+                _buildAnimatedMessageField(),
                 SizedBox(height: 25),
                 _buildSubmitButton(context),
               ],
@@ -88,7 +139,6 @@ class ContactPage extends StatelessWidget {
     );
   }
 
-  // Narrow layout for smaller screens
   Widget _buildNarrowLayout(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,75 +165,65 @@ class ContactPage extends StatelessWidget {
         SizedBox(height: 20),
         _buildSocialMediaIcons(),
         SizedBox(height: 20),
-        _buildTextField('Name'),
+        _buildAnimatedTextField('Name'),
         SizedBox(height: 15),
-        _buildTextField('E-mail'),
+        _buildAnimatedTextField('E-mail'),
         SizedBox(height: 15),
-        _buildTextField('Subject'),
+        _buildAnimatedTextField('Subject'),
         SizedBox(height: 15),
-        _buildMessageField(),
+        _buildAnimatedMessageField(),
         SizedBox(height: 25),
         _buildSubmitButton(context),
+        SizedBox(height: 20), // Add some spacing at the bottom
       ],
     );
   }
 
+  Widget _buildAnimatedTextField(String hintText) {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: _buildTextField(hintText),
+    );
+  }
+
+  Widget _buildAnimatedMessageField() {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: _buildMessageField(),
+    );
+  }
+
   Widget _buildSocialMediaIcons() {
-    return Row(
-      children: [
-        IconButton(
-          icon: Icon(Icons.facebook, color: Colors.teal),
-          onPressed: () async {
-            const url = 'https://www.facebook.com/sknayeem.urrahman/';
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              throw 'Could not launch $url';
-            }
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.link, color: Colors.teal),
-          onPressed: () async {
-            //https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/
-
-            const url = 'https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/';
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              throw 'Could not launch $url';
-            }
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.code, color: Colors.teal),
-          onPressed: () async {
-           // https://github.com/nayeemdiu
-
-
-            const url = 'https://github.com/nayeemdiu';
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              throw 'Could not launch $url';
-            }
-            // Add a link or functionality here for email or another platform
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.telegram, color: Colors.teal),
-          onPressed: () async {
-            // https://github.com/nayeemdiu
-            const url = 'https://t.me/your-telegram';
-            if (await canLaunch(url)) {
-              await launch(url);
-            } else {
-              throw 'Could not launch $url';
-            }
-            // Add a link or functionality here for email or another platform
-          },
-        ),
-      ],
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: Row(
+        children: [
+          IconButton(
+            icon: Icon(Icons.facebook, color: Colors.teal),
+            onPressed: () {
+              _launchURL('https://www.facebook.com/sknayeem.urrahman/');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.link, color: Colors.teal),
+            onPressed: () {
+              _launchURL('https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.code, color: Colors.teal),
+            onPressed: () {
+              _launchURL('https://github.com/nayeemdiu');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.telegram, color: Colors.teal),
+            onPressed: () {
+              _launchURL('https://t.me/your-telegram');
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -193,7 +233,7 @@ class ContactPage extends StatelessWidget {
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.white70),
         filled: true,
-        fillColor: Color(0xFF2C2C3E), // Dark input field background
+        fillColor: Color(0xFF2C2C3E),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Colors.transparent),
@@ -229,23 +269,22 @@ class ContactPage extends StatelessWidget {
   }
 
   Widget _buildSubmitButton(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return ElevatedButton(
+      onPressed: () {
+        // Add your submit action here
+      },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.teal, // Button color
-        padding: EdgeInsets.symmetric(vertical: 15),
+        backgroundColor: Colors.teal,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        shadowColor: Colors.teal.withOpacity(0.5),
-        elevation: screenWidth > 600 ? 5 : 3,
+        padding: EdgeInsets.symmetric(vertical: 15),
       ),
-      onPressed: () {
-        // Handle submit action
-      },
-      child: Text(
-        'Submit',
-        style: TextStyle(fontSize: 18, color: Colors.white),
+      child: Center(
+        child: Text(
+          'Send',
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
       ),
     );
   }
