@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
           : null,
       appBar: isMobile
           ? AppBar(
+        elevation: 0,
               title: Text("Sk Portfolio"),
               centerTitle: true,
               backgroundColor: Colors.teal,

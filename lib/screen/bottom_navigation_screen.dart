@@ -52,7 +52,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
                 BottomNavigationBarItem(icon: Icon(Icons.person),label: "About"),
                 BottomNavigationBarItem(icon: Icon(Icons.ac_unit_outlined),label: "Resume"),
                 BottomNavigationBarItem(icon: Icon(Icons.work),label: "Project"),
-                BottomNavigationBarItem(icon: Icon(Icons.accessible),label: "Skill"),
+                BottomNavigationBarItem(icon: Icon(Icons.accessible),label: "Service"),
                 BottomNavigationBarItem(icon: Icon(Icons.call),label: "Contact"),
 
               ]),

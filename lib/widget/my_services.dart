@@ -106,8 +106,8 @@ class _HoverableServiceItemState extends State<HoverableServiceItem> {
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           color: isHovered
-              ? Color.fromRGBO(204, 238, 236, 0.4470588235294118)
-              : Color.fromRGBO(220, 238, 237, 0.4470588235294118),
+              ? Color.fromRGBO(243, 246, 246, 0.4470588235294118)
+              : Color.fromRGBO(229, 252, 252, 0.4470588235294118),
           border: Border.all(
             width: 0.5,
             color: Colors.teal,

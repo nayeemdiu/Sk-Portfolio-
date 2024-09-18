@@ -6,7 +6,8 @@ class ContactPage extends StatefulWidget {
   _ContactPageState createState() => _ContactPageState();
 }
 
-class _ContactPageState extends State<ContactPage> with SingleTickerProviderStateMixin {
+class _ContactPageState extends State<ContactPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
@@ -14,24 +15,13 @@ class _ContactPageState extends State<ContactPage> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-
-    // Initialize animation controller
-    _controller = AnimationController(
-      duration: Duration(seconds: 1), // Animation duration
-      vsync: this,
-    );
-
-    // Slide animation
+    _controller = AnimationController(duration: Duration(seconds: 1), vsync: this);
     _slideAnimation = Tween<Offset>(begin: Offset(0, 0.5), end: Offset.zero).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-
-    // Fade animation
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
-
-    // Start the animation
     _controller.forward();
   }
 
@@ -50,30 +40,43 @@ class _ContactPageState extends State<ContactPage> with SingleTickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      backgroundColor: Color(0xFFFEFEFF),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: SlideTransition(
-          position: _slideAnimation, // Apply the slide animation
-          child: FadeTransition(
-            opacity: _fadeAnimation, // Apply the fade animation
-            child: SingleChildScrollView( // Add SingleChildScrollView
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20.0),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 0.5,
-                    color: Colors.teal,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          child: SlideTransition(
+            position: _slideAnimation,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: SingleChildScrollView(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(30.0),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.white, Color(0xFFE0F2F1)],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.teal.withOpacity(0.1),
+                        spreadRadius: 5,
+                        blurRadius: 15,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(20),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return constraints.maxWidth > 600
+                          ? _buildWideLayout(context)
+                          : _buildNarrowLayout(context);
+                    },
+                  ),
                 ),
-                child: screenWidth > 600 ? _buildWideLayout(context) : _buildNarrowLayout(context),
               ),
             ),
           ),
@@ -84,56 +87,16 @@ class _ContactPageState extends State<ContactPage> with SingleTickerProviderStat
 
   Widget _buildWideLayout(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 1,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  'Contact with me',
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.teal,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'For any service and work, you can contact with me by sending\nan email or through our social media accounts.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white70,
-                ),
-              ),
-              SizedBox(height: 20),
-              _buildSocialMediaIcons(), // Add animation
-            ],
-          ),
+          child: _buildContactInfo(),
         ),
         SizedBox(width: 50),
         Expanded(
           flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildAnimatedTextField('Name'),
-                SizedBox(height: 15),
-                _buildAnimatedTextField('E-mail'),
-                SizedBox(height: 15),
-                _buildAnimatedTextField('Subject'),
-                SizedBox(height: 15),
-                _buildAnimatedMessageField(),
-                SizedBox(height: 25),
-                _buildSubmitButton(context),
-              ],
-            ),
-          ),
+          child: _buildContactForm(),
         ),
       ],
     );
@@ -143,128 +106,149 @@ class _ContactPageState extends State<ContactPage> with SingleTickerProviderStat
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text(
-            'Contact with me',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.teal,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        SizedBox(height: 10),
-        Text(
-          'For any service and work, you can contact with me by sending\nan email or through our social media accounts.',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.white70,
-          ),
-        ),
-        SizedBox(height: 20),
-        _buildSocialMediaIcons(),
-        SizedBox(height: 20),
-        _buildAnimatedTextField('Name'),
-        SizedBox(height: 15),
-        _buildAnimatedTextField('E-mail'),
-        SizedBox(height: 15),
-        _buildAnimatedTextField('Subject'),
-        SizedBox(height: 15),
-        _buildAnimatedMessageField(),
-        SizedBox(height: 25),
-        _buildSubmitButton(context),
-        SizedBox(height: 20), // Add some spacing at the bottom
+        _buildContactInfo(),
+        SizedBox(height: 30),
+        _buildContactForm(),
       ],
     );
   }
 
-  Widget _buildAnimatedTextField(String hintText) {
+  Widget _buildContactInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Contact Me',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.teal[800],
+          ),
+        ),
+        SizedBox(height: 15),
+        Text(
+          'I would love to hear from you. Whether you have a question or just want to say hi, feel free to drop a message.',
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.blueGrey[700],
+            height: 1.5,
+          ),
+        ),
+        SizedBox(height: 30),
+        _buildSocialMediaIcons(),
+      ],
+    );
+  }
+
+  Widget _buildContactForm() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildAnimatedTextField('Name', Icons.person),
+        SizedBox(height: 20),
+        _buildAnimatedTextField('Email', Icons.email),
+        SizedBox(height: 20),
+        _buildAnimatedTextField('Subject', Icons.subject),
+        SizedBox(height: 20),
+        _buildAnimatedMessageField(),
+        SizedBox(height: 30),
+        _buildSubmitButton(context),
+      ],
+    );
+  }
+
+  Widget _buildSocialMediaIcons() {
+    final iconSize = 20.0;
+    return Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      children: [
+        _buildSocialIcon(Icons.facebook, Colors.blue[700]!,
+            'https://www.facebook.com/sknayeem.urrahman/', iconSize),
+        _buildSocialIcon(
+            Icons.link,
+            Colors.blue[400]!,
+            'https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/',
+            iconSize),
+        _buildSocialIcon(Icons.code, Colors.black87,
+            'https://github.com/nayeemdiu', iconSize),
+        _buildSocialIcon(Icons.telegram, Colors.blue[300]!,
+            'https://t.me/your-telegram', iconSize),
+      ],
+    );
+  }
+
+  Widget _buildSocialIcon(IconData icon, Color color, String url, double size) {
+    return InkWell(
+      onTap: () => _launchURL(url),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Icon(icon, color: color, size: size),
+      ),
+    );
+  }
+
+  Widget _buildAnimatedTextField(String hintText, IconData icon) {
     return FadeTransition(
       opacity: _fadeAnimation,
-      child: _buildTextField(hintText),
+      child: _buildTextField(hintText, icon),
+    );
+  }
+
+  Widget _buildTextField(String hintText, IconData icon) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: Icon(icon, color: Colors.teal),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.teal.shade100),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.teal, width: 2),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.teal.shade100),
+        ),
+      ),
     );
   }
 
   Widget _buildAnimatedMessageField() {
     return FadeTransition(
       opacity: _fadeAnimation,
-      child: _buildMessageField(),
-    );
-  }
-
-  Widget _buildSocialMediaIcons() {
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.facebook, color: Colors.teal),
-            onPressed: () {
-              _launchURL('https://www.facebook.com/sknayeem.urrahman/');
-            },
+      child: TextField(
+        maxLines: 5,
+        decoration: InputDecoration(
+          hintText: 'Your message...',
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(bottom: 80),
+            child: Icon(Icons.message, color: Colors.teal),
           ),
-          IconButton(
-            icon: Icon(Icons.link, color: Colors.teal),
-            onPressed: () {
-              _launchURL('https://www.linkedin.com/in/sk-nayeem-ur-rahman-439783271/');
-            },
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.teal.shade100),
           ),
-          IconButton(
-            icon: Icon(Icons.code, color: Colors.teal),
-            onPressed: () {
-              _launchURL('https://github.com/nayeemdiu');
-            },
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.teal, width: 2),
           ),
-          IconButton(
-            icon: Icon(Icons.telegram, color: Colors.teal),
-            onPressed: () {
-              _launchURL('https://t.me/your-telegram');
-            },
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.teal.shade100),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTextField(String hintText) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white70),
-        filled: true,
-        fillColor: Color(0xFF2C2C3E),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.transparent),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.teal),
         ),
       ),
-      style: TextStyle(color: Colors.white),
-    );
-  }
-
-  Widget _buildMessageField() {
-    return TextField(
-      maxLines: 6,
-      decoration: InputDecoration(
-        hintText: 'Type a message here...',
-        hintStyle: TextStyle(color: Colors.white70),
-        filled: true,
-        fillColor: Color(0xFF2C2C3E),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.transparent),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.teal),
-        ),
-      ),
-      style: TextStyle(color: Colors.white),
     );
   }
 
@@ -279,12 +263,11 @@ class _ContactPageState extends State<ContactPage> with SingleTickerProviderStat
           borderRadius: BorderRadius.circular(10),
         ),
         padding: EdgeInsets.symmetric(vertical: 15),
+        elevation: 3,
       ),
-      child: Center(
-        child: Text(
-          'Send',
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
+      child: Text(
+        'Send Message',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

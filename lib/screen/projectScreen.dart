@@ -23,57 +23,57 @@ class ProjectScreen extends StatelessWidget {
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
-      color: Colors.blue,
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
-      title: 'Weather Forecast',
-      description: 'Real-time weather updates and forecasts',
-      imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.png',],
-      color: Colors.orange,
+      title: 'Daily task traker App',
+      description: 'A full-featured online shopping experience',
+      imageUrl: 'assets/todo.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
-      color: Colors.blue,
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
-      title: 'Weather Forecast',
-      description: 'Real-time weather updates and forecasts',
-      imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.png',],
-      color: Colors.orange,
+      title: 'Daily task traker App',
+      description: 'A full-featured online shopping experience',
+      imageUrl: 'assets/todo.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
-      color: Colors.blue,
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
-      title: 'Weather Forecast',
-      description: 'Real-time weather updates and forecasts',
-      imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.png',],
-      color: Colors.orange,
+      title: 'Daily task traker App',
+      description: 'A full-featured online shopping experience',
+      imageUrl: 'assets/todo.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg','assets/e4.jpg','assets/e5.jpg','assets/e6.jpg'], // Add more images
-      color: Colors.blue,
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     Project(
-      title: 'Weather Forecast',
-      description: 'Real-time weather updates and forecasts',
-      imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.png',],
-      color: Colors.orange,
+      title: 'Daily task traker App',
+      description: 'A full-featured online shopping experience',
+      imageUrl: 'assets/todo.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
+      color: Colors.white,
     ),
     // Add other projects here
   ];
@@ -82,27 +82,22 @@ class ProjectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('My Projects', style: TextStyle(fontSize: 18, color: Colors.black87)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: AnimationLimiter(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return GridView.builder(
-              padding: EdgeInsets.only(left: 10,right: 10,),
+              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 25),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: constraints.maxWidth > 600 ? 3 : 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                childAspectRatio: 0.8, // Adjust this value to control card height
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.7,
               ),
               itemCount: projects.length,
               itemBuilder: (BuildContext context, int index) {
                 return AnimationConfiguration.staggeredGrid(
                   position: index,
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 600),
                   columnCount: constraints.maxWidth > 600 ? 3 : 2,
                   child: SlideAnimation(
                     verticalOffset: 50.0,
@@ -135,7 +130,7 @@ class _ProjectCardState extends State<ProjectCard> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final double imageHeight = screenSize.width > 600 ? 150 : 100;
+    final double imageHeight = screenSize.width > 600 ? 160 : 100;
 
     return MouseRegion(
       onEnter: (_) => _onHover(true),
@@ -145,18 +140,22 @@ class _ProjectCardState extends State<ProjectCard> {
         curve: Curves.easeInOut,
         transform: _isHovered ? (Matrix4.identity()..scale(1.05)) : Matrix4.identity(),
         decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [_isHovered ? widget.project.color.withOpacity(0.9) : Colors.white, widget.project.color.withOpacity(0.6)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           border: Border.all(
             width: 0.5,
             color: Colors.teal,
           ),
-          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: _isHovered ? widget.project.color.withOpacity(0.1) : Colors.black.withOpacity(0.1),
-              spreadRadius: _isHovered ? 5 : 0,
-              blurRadius: 10,
-              offset: Offset(0, 5),
+              color: _isHovered ? widget.project.color.withOpacity(0.4) : Colors.black.withOpacity(0.1),
+              spreadRadius: _isHovered ? 10 : 0,
+              blurRadius: 20,
+              offset: Offset(0, 10),
             ),
           ],
         ),
@@ -164,7 +163,7 @@ class _ProjectCardState extends State<ProjectCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20),),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
@@ -177,12 +176,16 @@ class _ProjectCardState extends State<ProjectCard> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: widget.project.color,
+                      color: Colors.teal,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
                     ),
                     child: Text(
                       widget.project.title,
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ],
@@ -195,26 +198,24 @@ class _ProjectCardState extends State<ProjectCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Text(
-                        widget.project.description,
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    Text(
+                      widget.project.description,
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
                         _showImageDialog(context, widget.project.imageUrls);
                       },
-                      child: Text('View', style: TextStyle(fontSize: 12, color: Colors.white)),
+                      child: Text('View', style: TextStyle(fontSize: 14, color: Colors.white)),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: widget.project.color,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        backgroundColor: Colors.teal,
                       ),
                     ),
                   ],
@@ -236,7 +237,6 @@ class _ProjectCardState extends State<ProjectCard> {
   void _showImageDialog(BuildContext context, List<String> imageUrls) {
     final screenSize = MediaQuery.of(context).size;
     final double dialogWidth = screenSize.width > 600 ? 500 : screenSize.width - 40;
-    final double imageHeight = screenSize.width > 600 ? 150 : 100;
 
     showDialog(
       context: context,
@@ -252,9 +252,6 @@ class _ProjectCardState extends State<ProjectCard> {
                 duration: Duration(milliseconds: 300),
                 child: Container(
                   width: dialogWidth,
-                  constraints: BoxConstraints(
-                    maxHeight: screenSize.height * 0.75,
-                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20),
@@ -280,8 +277,8 @@ class _ProjectCardState extends State<ProjectCard> {
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Image.asset(
                                   url,
-                                  width: screenSize.width > 600 ? 150 : imageHeight,
-                                  height: imageHeight,
+                                  width: screenSize.width > 600 ? 150 : 100,
+                                  height: 100,
                                   fit: BoxFit.cover,
                                 ),
                               );
