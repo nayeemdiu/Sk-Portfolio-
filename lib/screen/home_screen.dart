@@ -67,9 +67,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       // Mobile view with Drawer for Menu
-      drawer: isMobile
-          ? Drawer(child: MenuScreen(onItemSelected: updateScreen))
-          : null,
+      // drawer: isMobile
+      //     ? Drawer(child: MenuScreen(onItemSelected: updateScreen))
+      //     : null,
       appBar: isMobile
           ? AppBar(
         elevation: 0,

@@ -7,6 +7,7 @@ class Project {
   final String imageUrl;
   final List<String> imageUrls;
   final Color color;
+  final Color buttonColor;
 
   Project({
     required this.title,
@@ -14,6 +15,7 @@ class Project {
     required this.imageUrl,
     required this.imageUrls,
     required this.color,
+    required this.buttonColor,
   });
 }
 
@@ -24,76 +26,173 @@ class ProjectScreen extends StatelessWidget {
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
       imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
+      color: Colors.blue.shade50,
+      buttonColor: Colors.blue,
+    ),
+    Project(
+      title: 'Social Media App',
+      description: 'Connect with friends and share your moments',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.green.shade50,
+      buttonColor: Colors.green,
+    ),
+    Project(
+      title: 'Fitness Tracker',
+      description: 'Monitor your health and fitness goals',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.orange.shade50,
+      buttonColor: Colors.orange,
+    ),
+    Project(
+      title: 'Recipe App',
+      description: 'Discover and share delicious recipes',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.purple.shade50,
+      buttonColor: Colors.purple,
     ),
     Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
       imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
+      color: Colors.blue.shade50,
+      buttonColor: Colors.blue,
+    ),
+    Project(
+      title: 'Social Media App',
+      description: 'Connect with friends and share your moments',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.green.shade50,
+      buttonColor: Colors.green,
+    ),
+    Project(
+      title: 'Fitness Tracker',
+      description: 'Monitor your health and fitness goals',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.orange.shade50,
+      buttonColor: Colors.orange,
+    ),
+    Project(
+      title: 'Recipe App',
+      description: 'Discover and share delicious recipes',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.purple.shade50,
+      buttonColor: Colors.purple,
     ),
     Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
       imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
+      color: Colors.blue.shade50,
+      buttonColor: Colors.blue,
+    ),
+    Project(
+      title: 'Social Media App',
+      description: 'Connect with friends and share your moments',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.green.shade50,
+      buttonColor: Colors.green,
+    ),
+    Project(
+      title: 'Fitness Tracker',
+      description: 'Monitor your health and fitness goals',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.orange.shade50,
+      buttonColor: Colors.orange,
+    ),
+    Project(
+      title: 'Recipe App',
+      description: 'Discover and share delicious recipes',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.purple.shade50,
+      buttonColor: Colors.purple,
     ),
     Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
       imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
+      color: Colors.blue.shade50,
+      buttonColor: Colors.blue,
     ),
-    // Add other projects here
+    Project(
+      title: 'Social Media App',
+      description: 'Connect with friends and share your moments',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.green.shade50,
+      buttonColor: Colors.green,
+    ),
+    Project(
+      title: 'Fitness Tracker',
+      description: 'Monitor your health and fitness goals',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.orange.shade50,
+      buttonColor: Colors.orange,
+    ),
+    Project(
+      title: 'Recipe App',
+      description: 'Discover and share delicious recipes',
+      imageUrl: 'assets/e1.png',
+      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg'],
+      color: Colors.purple.shade50,
+      buttonColor: Colors.purple,
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: AnimationLimiter(
+      body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            return GridView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 25),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: constraints.maxWidth > 600 ? 3 : 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: _getChildAspectRatio(constraints.maxWidth),
-              ),
-              itemCount: projects.length,
-              itemBuilder: (BuildContext context, int index) {
-                return AnimationConfiguration.staggeredGrid(
-                  position: index,
-                  duration: const Duration(milliseconds: 600),
-                  columnCount: constraints.maxWidth > 600 ? 3 : 2,
-                  child: SlideAnimation(
-                    verticalOffset: 50.0,
-                    child: FadeInAnimation(
-                      child: ProjectCard(project: projects[index]),
+            return Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: constraints.maxHeight - 20, // Reduced padding
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10), // Reduced padding
+                  child: ListWheelScrollView.useDelegate(
+                    itemExtent: 290, // Slightly reduced item extent
+                    diameterRatio: 2.0,
+                    offAxisFraction: -0.5,
+                    physics: FixedExtentScrollPhysics(),
+                    childDelegate: ListWheelChildBuilderDelegate(
+                      childCount: projects.length,
+                      builder: (context, index) {
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 200),
+                          child: SlideAnimation(
+                            verticalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: ProjectCard(project: projects[index]),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             );
           },
         ),
       ),
     );
-  }
-
-  double _getChildAspectRatio(double maxWidth) {
-    if (maxWidth > 900) {
-      return 0.8; // For large screens (web)
-    } else if (maxWidth > 600) {
-      return 0.75; // For tablet screens
-    } else {
-      return 0.65; // Adjusted for mobile screens
-    }
   }
 }
 
@@ -113,15 +212,15 @@ class _ProjectCardState extends State<ProjectCard> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final isSmallScreen = screenSize.width <= 600;
-    final double imageHeight = isSmallScreen ? 80 : 160;
+    final double imageHeight = isSmallScreen ? 110 : 170; // Further reduced height
 
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), // Reduced vertical padding
       child: MouseRegion(
         onEnter: (_) => _onHover(true),
         onExit: (_) => _onHover(false),
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: Duration(milliseconds: 100),
           curve: Curves.easeInOut,
           transform: _isHovered ? (Matrix4.identity()..scale(1.05)) : Matrix4.identity(),
           decoration: BoxDecoration(
@@ -132,15 +231,15 @@ class _ProjectCardState extends State<ProjectCard> {
             ),
             border: Border.all(
               width: 0.5,
-              color: Colors.teal,
+              color: widget.project.buttonColor,
             ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
                 color: _isHovered ? widget.project.color.withOpacity(0.4) : Colors.black.withOpacity(0.1),
-                spreadRadius: _isHovered ? 10 : 0,
-                blurRadius: 20,
-                offset: Offset(0, 10),
+                spreadRadius: _isHovered ? 5 : 0, // Reduced spread
+                blurRadius: 15, // Reduced blur
+                offset: Offset(0, 5), // Reduced offset
               ),
             ],
           ),
@@ -161,7 +260,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.teal,
+                        color: widget.project.buttonColor,
                         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
                       ),
                       child: Text(
@@ -169,7 +268,7 @@ class _ProjectCardState extends State<ProjectCard> {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: isSmallScreen ? 12 : 14,
+                          fontSize: isSmallScreen ? 12 : 14, // Slightly reduced font size
                         ),
                       ),
                     ),
@@ -178,29 +277,29 @@ class _ProjectCardState extends State<ProjectCard> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.all(isSmallScreen ? 8 : 12),
+                  padding: EdgeInsets.all(isSmallScreen ? 8 : 12), // Reduced padding
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         widget.project.description,
-                        style: TextStyle(fontSize: isSmallScreen ? 12 : 14, color: Colors.grey[700]),
+                        style: TextStyle(fontSize: isSmallScreen ? 12 : 14, color: Colors.grey[700]), // Reduced font size
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: isSmallScreen ? 5 : 10),
+                      SizedBox(height: isSmallScreen ? 5 : 10), // Reduced spacing
                       ElevatedButton(
                         onPressed: () {
                           _showImageDialog(context, widget.project.imageUrls);
                         },
-                        child: Text('View', style: TextStyle(fontSize: isSmallScreen ? 12 : 14, color: Colors.white)),
+                        child: Text('View', style: TextStyle(fontSize: isSmallScreen ? 12 : 14, color: Colors.white)), // Reduced font size
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12 : 16, vertical: isSmallScreen ? 8 : 10),
-                          backgroundColor: Colors.teal,
+                          padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12 : 16, vertical: isSmallScreen ? 8 : 10), // Reduced padding
+                          backgroundColor: widget.project.buttonColor,
                         ),
                       ),
                     ],
@@ -263,8 +362,8 @@ class _ProjectCardState extends State<ProjectCard> {
                                 padding: EdgeInsets.symmetric(horizontal: 8),
                                 child: Image.asset(
                                   url,
-                                  width: screenSize.width > 600 ? 150 : 100,
-                                  height: 100,
+                                  width: screenSize.width > 600 ? 150 : 200,
+                                  height: MediaQuery.sizeOf(context).height*0.50,
                                   fit: BoxFit.cover,
                                 ),
                               );
@@ -277,7 +376,7 @@ class _ProjectCardState extends State<ProjectCard> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        icon: Icon(Icons.close, color: Colors.teal),
+                        icon: Icon(Icons.close, color: widget.project.buttonColor),
                       ),
                     ],
                   ),
