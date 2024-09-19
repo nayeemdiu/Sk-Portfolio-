@@ -27,9 +27,9 @@ class ProjectScreen extends StatelessWidget {
       color: Colors.white,
     ),
     Project(
-      title: 'Daily task traker App',
+      title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
-      imageUrl: 'assets/todo.png',
+      imageUrl: 'assets/e1.png',
       imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
       color: Colors.white,
     ),
@@ -41,37 +41,9 @@ class ProjectScreen extends StatelessWidget {
       color: Colors.white,
     ),
     Project(
-      title: 'Daily task traker App',
-      description: 'A full-featured online shopping experience',
-      imageUrl: 'assets/todo.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
-    ),
-    Project(
       title: 'E-commerce App',
       description: 'A full-featured online shopping experience',
       imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
-    ),
-    Project(
-      title: 'Daily task traker App',
-      description: 'A full-featured online shopping experience',
-      imageUrl: 'assets/todo.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
-    ),
-    Project(
-      title: 'E-commerce App',
-      description: 'A full-featured online shopping experience',
-      imageUrl: 'assets/e1.png',
-      imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
-      color: Colors.white,
-    ),
-    Project(
-      title: 'Daily task traker App',
-      description: 'A full-featured online shopping experience',
-      imageUrl: 'assets/todo.png',
       imageUrls: ['assets/e1.jpg', 'assets/e2.jpg', 'assets/e3.jpg', 'assets/e4.jpg', 'assets/e5.jpg', 'assets/e6.jpg'],
       color: Colors.white,
     ),
@@ -86,12 +58,12 @@ class ProjectScreen extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             return GridView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 25),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 25),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: constraints.maxWidth > 600 ? 3 : 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 0.7,
+                childAspectRatio: _getChildAspectRatio(constraints.maxWidth),
               ),
               itemCount: projects.length,
               itemBuilder: (BuildContext context, int index) {
@@ -113,6 +85,16 @@ class ProjectScreen extends StatelessWidget {
       ),
     );
   }
+
+  double _getChildAspectRatio(double maxWidth) {
+    if (maxWidth > 900) {
+      return 0.8; // For large screens (web)
+    } else if (maxWidth > 600) {
+      return 0.75; // For tablet screens
+    } else {
+      return 0.65; // Adjusted for mobile screens
+    }
+  }
 }
 
 class ProjectCard extends StatefulWidget {
@@ -130,99 +112,103 @@ class _ProjectCardState extends State<ProjectCard> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final double imageHeight = screenSize.width > 600 ? 160 : 100;
+    final isSmallScreen = screenSize.width <= 600;
+    final double imageHeight = isSmallScreen ? 80 : 160;
 
-    return MouseRegion(
-      onEnter: (_) => _onHover(true),
-      onExit: (_) => _onHover(false),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        transform: _isHovered ? (Matrix4.identity()..scale(1.05)) : Matrix4.identity(),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [_isHovered ? widget.project.color.withOpacity(0.9) : Colors.white, widget.project.color.withOpacity(0.6)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          border: Border.all(
-            width: 0.5,
-            color: Colors.teal,
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: _isHovered ? widget.project.color.withOpacity(0.4) : Colors.black.withOpacity(0.1),
-              spreadRadius: _isHovered ? 10 : 0,
-              blurRadius: 20,
-              offset: Offset(0, 10),
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: MouseRegion(
+        onEnter: (_) => _onHover(true),
+        onExit: (_) => _onHover(false),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          transform: _isHovered ? (Matrix4.identity()..scale(1.05)) : Matrix4.identity(),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [_isHovered ? widget.project.color.withOpacity(0.9) : Colors.white, widget.project.color.withOpacity(0.6)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Image.asset(
-                    widget.project.imageUrl,
-                    height: imageHeight,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.teal,
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
-                    ),
-                    child: Text(
-                      widget.project.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ],
+            border: Border.all(
+              width: 0.5,
+              color: Colors.teal,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered ? widget.project.color.withOpacity(0.4) : Colors.black.withOpacity(0.1),
+                spreadRadius: _isHovered ? 10 : 0,
+                blurRadius: 20,
+                offset: Offset(0, 10),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                child: Stack(
+                  alignment: Alignment.topRight,
                   children: [
-                    Text(
-                      widget.project.description,
-                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    Image.asset(
+                      widget.project.imageUrl,
+                      height: imageHeight,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
-                    SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        _showImageDialog(context, widget.project.imageUrls);
-                      },
-                      child: Text('View', style: TextStyle(fontSize: 14, color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.teal,
+                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
+                      ),
+                      child: Text(
+                        widget.project.title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: isSmallScreen ? 12 : 14,
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                        backgroundColor: Colors.teal,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(isSmallScreen ? 8 : 12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.project.description,
+                        style: TextStyle(fontSize: isSmallScreen ? 12 : 14, color: Colors.grey[700]),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: isSmallScreen ? 5 : 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          _showImageDialog(context, widget.project.imageUrls);
+                        },
+                        child: Text('View', style: TextStyle(fontSize: isSmallScreen ? 12 : 14, color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12 : 16, vertical: isSmallScreen ? 8 : 10),
+                          backgroundColor: Colors.teal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
