@@ -13,14 +13,14 @@ class MyServices extends StatelessWidget {
       'description': 'Developing high-quality mobile applications'
     },
     {
-      'name': 'Web Design/Development',
+      'name': 'Web Design Development',
       'icon': Icons.web,
       'description': 'Creating responsive and user-friendly websites'
     },
     {
-      'name': 'Graphic Design',
-      'icon': Icons.design_services,
-      'description': 'Designing visually appealing graphics and logos'
+      'name': 'Webview App',
+      'icon': Icons.phone_android,
+      'description': 'Developing high-quality mobile applications'
     },
     {
       'name': 'App Published on Playstore',
@@ -28,13 +28,13 @@ class MyServices extends StatelessWidget {
       'description': 'Publishing apps on the Google Play Store'
     },
     {
-      'name': 'Mobile App Development',
-      'icon': Icons.phone_android,
-      'description': 'Developing high-quality mobile applications'
+      'name': 'Graphic Design',
+      'icon': Icons.design_services,
+      'description': 'Designing visually appealing graphics and logos'
     },
     {
-      'name': 'Web Design & Development',
-      'icon': Icons.web,
+      'name': 'Digital Marketing',
+      'icon': Icons.mark_email_read,
       'description': 'Creating responsive and user-friendly websites'
     },
   ];
