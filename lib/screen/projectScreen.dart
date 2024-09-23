@@ -38,7 +38,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
     Project(
       title: 'Hotel Booking App',
       description: 'Discover and share delicious room book',
-      imageUrl: 'assets/f4.jpg',
+      imageUrl: 'assets/hotel.jpg',
       imageUrls: ['assets/f4.jpg', 'assets/f5.jpg'],
       color: Colors.teal.shade50,
       buttonColor: Colors.teal,
@@ -46,7 +46,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
     Project(
       title: 'Digital Course App',
       description: 'A full-featured online course experience',
-      imageUrl: 'assets/f7.jpg',
+      imageUrl: 'assets/course.jpg',
       imageUrls: ['assets/f6.jpg', 'assets/f7.jpg'],
       color: Colors.blueAccent.shade100,
       buttonColor: Colors.blueAccent,
@@ -54,7 +54,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
     Project(
       title: 'Todo Tracker App',
       description: 'This app helps to track your daily work',
-      imageUrl: 'assets/todo1.png',
+      imageUrl: 'assets/todo.jpg',
       imageUrls: ['assets/t1.jpg', 'assets/t2.jpg', 'assets/t3.jpg', 'assets/t4.jpg'],
       color: Colors.green.shade50,
       buttonColor: Colors.green,
@@ -62,7 +62,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
     Project(
       title: 'Fitness Tracker',
       description: 'Monitor your health and fitness goals',
-      imageUrl: 'assets/f1.jpg',
+      imageUrl: 'assets/fitness.jpg',
       imageUrls: ['assets/f1.jpg', 'assets/f2.jpg', 'assets/f3.jpg'],
       color: Colors.blue.shade50,
       buttonColor: Colors.blue,
@@ -279,7 +279,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       widget.project.imageUrl,
                       height: imageHeight,
                       width: double.infinity,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),

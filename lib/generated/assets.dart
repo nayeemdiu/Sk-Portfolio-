@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String assetsCollage = 'assets/collage.png';
+  static const String assetsCourse = 'assets/course.jpg';
   static const String assetsDiu = 'assets/diu.png';
   static const String assetsE1 = 'assets/e1.jpg';
   static const String assetsE2 = 'assets/e2.jpg';
@@ -17,6 +18,8 @@ class Assets {
   static const String assetsF5 = 'assets/f5.jpg';
   static const String assetsF6 = 'assets/f6.jpg';
   static const String assetsF7 = 'assets/f7.jpg';
+  static const String assetsFitness = 'assets/fitness.jpg';
+  static const String assetsHotel = 'assets/hotel.jpg';
   static const String assetsIhelpbd = 'assets/ihelpbd.png';
   static const String assetsLogo = 'assets/logo.png';
   static const String assetsNayeem1 = 'assets/nayeem1.jpg';
@@ -27,7 +30,7 @@ class Assets {
   static const String assetsT2 = 'assets/t2.jpg';
   static const String assetsT3 = 'assets/t3.jpg';
   static const String assetsT4 = 'assets/t4.jpg';
-  static const String assetsTodo = 'assets/todo.png';
+  static const String assetsTodo = 'assets/todo.jpg';
   static const String assetsTodo1 = 'assets/todo1.png';
   static const String imagesBackend = 'assets/images/backend.png';
   static const String imagesBackendIcon = 'assets/images/backend_icon.png';
@@ -43,5 +46,6 @@ class Assets {
   static const String imagesPython = 'assets/images/python.png';
   static const String imagesPythonCircle = 'assets/images/python_circle.png';
   static const String skportfolioAssetsE1 = 'assets/e1.png';
+  static const String skportfolioAssetsTodo = 'assets/todo.png';
 
 }
