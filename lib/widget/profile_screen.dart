@@ -130,6 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     });
                   },
                   onPressed: () {
+                    _launchWhatsApp();
                     print("Hire Me button pressed");
                   },
                 ),
@@ -215,5 +216,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+}
+Future<void> _launchWhatsApp() async {
+  String url = 'https://wa.me/8801733367274?text=${Uri.encodeComponent}';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
